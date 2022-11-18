@@ -5,4 +5,6 @@
 layout: home
 title: Home
 banner: "/assets/images/banners/home.jpeg"
+heading: "Puffer Cafe"
+subheading: "Computer Science, VLSI, uKernel Dev, Operating Systems, and tech."
 ---
