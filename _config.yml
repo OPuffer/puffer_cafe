@@ -34,6 +34,8 @@ copyright:              >
 
 # Build settings
 theme: jekyll-theme-yat
+brand_color: greenblue
+
 plugins:
   - jekyll-feed
 
