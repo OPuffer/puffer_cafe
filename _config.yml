@@ -23,7 +23,7 @@ email: pufferoliver@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   Computer Science, VLSI, uKernel Dev, Operating Systems, and tech.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: opuffer.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+url: opuffer.github.io/puffer_cafe" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jekyllrb
 github_username:  jekyll
 
