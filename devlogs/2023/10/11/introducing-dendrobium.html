@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Introducing Dendrobium! | Puffer Cafe</title>
+<meta name="generator" content="Jekyll v4.3.1">
+<meta property="og:title" content="Introducing Dendrobium!">
+<meta name="author" content="oliver_puffer">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="Introduction For those of you who don’t know me, I am a fairly avid gardener. I collect rare and unique plants (sustainably sourced, of course) for an indoor plant collection that I have been contributing to and maintaining since my time in college. Recently, my partner has begun attending medical school at The University of California Davis School of Medicine in Sacramento, CA. There is far more outdoor space here in Sacramento, as opposed to in our tiny apartment in the Bay Area, which means I have been able to expand my plant collection to include a variety of northern california native plants as well. We also had a neighbor, upon hearing that we were moving, very generously offer us a variety of cuttings and house plants as well, to kickstart my expanded collection. As a result, my collection of plants has rapidly expanded to fill the newly available space, and for the first time I have begun to encountered difficulty keeping track of the requirements and watering schedules for each of them. Annnd then I got fungus gnats from a plant I bought online. And then the fungus gnats went for the cuttings I was attempting to propagate. With the new location, the new watering and light requirements, and the pests, my system for maintaining my collection began to break down. I needed to apply pest treatments 1 once a week, reacclimate all my plants to the new weather, water once every 7-10 days, re-pot plants that were overdue, fertilize plants, put shade cloth over plants that were getting sunburned, and generally manage a lot of added complexity. So being who I am, I began to search for technology that could assist me in maintaining my plant collection. Not just for watering, but also in regards to maintenance, pruning, weatherproofing, and neem-oil/fungicide/beneficial-nematode application.1 Unfortunately, the apps currently on the market left a lot to be desired, they were either too rigid (you must water once a week on the dot), too feature limited (no support for fertilizer/pesticide application), or really expensive (\$8-\$20 a month). 2 Which is why, I am going to build one. I have named this project Dendrobium. What’s in a Name? I wanted to pick a good name for this project. Which is easier said than done, it takes seconds to register a domain name, which means most of the good ones were taken hundreds of millions of seconds ago. After several days of trying different combinations, I settled on Dendrobium for a number of reasons. The word Dendrobium refers to a genus of epiphytic3 (and occasionally lithophytic4) Orchids People often struggle to care for orchids, in large part because the way they are presented for sale often contradicts their needs. This is an issue my app will seek to mitigate. Orchids are often presented like any other plant, in a pot, with their roots covered in growth media. Orchids are Epiphytic, which means instead of from potting mixes, they want to receive their water an nutrients in the form of humidity and moisture collecting on the side of a tree The most natural way to grow orchids is mounted on a piece of wood in high humidity environment such that the roots dry quickly after getting wet. While potted orchids can be grown with success, it requires very different, well draining “soil”. Dendrobium includes the greek root word “Dendron” meaning tree/plant and “Bios” meaning life. While this is in reference to how they grow in the wild. These concepts are also relevant to the project. Dendrobium.io was an unclaimed domain First Steps I already a splash page successfully hosted at Dendrobium.io including a nonfunctional preview of what the site layout might look like. I am not 100% satisfied with how it looks, but I think it is good enough for now. Currently it is a static site hosted with github pages, but this app will need a functioning backend in order to deliver the experience I am targeting. I have decided to develop the core application with the Django framework, because of its versatility, built in admin panel, security focus, and support of Python programming language. With this decision out of the way, it is time to setup our development environment and pipeline. The steps are: Create Dev Environment Implement boilerplate and serve a splash page to verify functionality. Select and Setup Database (PostgreSQL is my favorite, but is it the best match for this application?) Determine Where and How to Deploy (I will probably start with Heroku because I already have underutilized eco dynamos provisioned for other projects) Setup Continuous Integration Automated Testing with Github Actions Setup Terraform (Probably Overkill for now, but if I start defining infrastructure from the start, it will greatly help with scaling if I decide to add a CDN, Multiple DBs, or more microservices) Setup Continuous Deployment to Heroku Test Branch Once I get all this out of the way, I can begin to implement features. I will begin with the basics; Exposing DB actions through a REST API, handling User Authentication, deciding how to define the relationship between different models, allowing users to add/edit/remove plants from their “garden” and input care notes. Once all of this is in place, I can setup the backend to process these notes and develop a care schedule. For now though, it is the boilerplate. Stay tuned for updates! Footnotes: By the way, Beneficial Nematodes were actually super effective at solving the fungus gnat issue. 10/10 would recommend ↩ Don’t worry, my plants all turned out ok. There is one Rhaphidophora tetrasperma that was already unhealthy that I am propagating because it did not move well, but otherwise all plants are doing much better now, and my uncommon propagations have been successfully transferred to soil. ↩ Epiphyte - A plant that grows off of another plant, as opposed to in soil. ↩ lithophyte - A plant that grows on rock faces ↩">
+<meta property="og:description" content="Introduction For those of you who don’t know me, I am a fairly avid gardener. I collect rare and unique plants (sustainably sourced, of course) for an indoor plant collection that I have been contributing to and maintaining since my time in college. Recently, my partner has begun attending medical school at The University of California Davis School of Medicine in Sacramento, CA. There is far more outdoor space here in Sacramento, as opposed to in our tiny apartment in the Bay Area, which means I have been able to expand my plant collection to include a variety of northern california native plants as well. We also had a neighbor, upon hearing that we were moving, very generously offer us a variety of cuttings and house plants as well, to kickstart my expanded collection. As a result, my collection of plants has rapidly expanded to fill the newly available space, and for the first time I have begun to encountered difficulty keeping track of the requirements and watering schedules for each of them. Annnd then I got fungus gnats from a plant I bought online. And then the fungus gnats went for the cuttings I was attempting to propagate. With the new location, the new watering and light requirements, and the pests, my system for maintaining my collection began to break down. I needed to apply pest treatments 1 once a week, reacclimate all my plants to the new weather, water once every 7-10 days, re-pot plants that were overdue, fertilize plants, put shade cloth over plants that were getting sunburned, and generally manage a lot of added complexity. So being who I am, I began to search for technology that could assist me in maintaining my plant collection. Not just for watering, but also in regards to maintenance, pruning, weatherproofing, and neem-oil/fungicide/beneficial-nematode application.1 Unfortunately, the apps currently on the market left a lot to be desired, they were either too rigid (you must water once a week on the dot), too feature limited (no support for fertilizer/pesticide application), or really expensive (\$8-\$20 a month). 2 Which is why, I am going to build one. I have named this project Dendrobium. What’s in a Name? I wanted to pick a good name for this project. Which is easier said than done, it takes seconds to register a domain name, which means most of the good ones were taken hundreds of millions of seconds ago. After several days of trying different combinations, I settled on Dendrobium for a number of reasons. The word Dendrobium refers to a genus of epiphytic3 (and occasionally lithophytic4) Orchids People often struggle to care for orchids, in large part because the way they are presented for sale often contradicts their needs. This is an issue my app will seek to mitigate. Orchids are often presented like any other plant, in a pot, with their roots covered in growth media. Orchids are Epiphytic, which means instead of from potting mixes, they want to receive their water an nutrients in the form of humidity and moisture collecting on the side of a tree The most natural way to grow orchids is mounted on a piece of wood in high humidity environment such that the roots dry quickly after getting wet. While potted orchids can be grown with success, it requires very different, well draining “soil”. Dendrobium includes the greek root word “Dendron” meaning tree/plant and “Bios” meaning life. While this is in reference to how they grow in the wild. These concepts are also relevant to the project. Dendrobium.io was an unclaimed domain First Steps I already a splash page successfully hosted at Dendrobium.io including a nonfunctional preview of what the site layout might look like. I am not 100% satisfied with how it looks, but I think it is good enough for now. Currently it is a static site hosted with github pages, but this app will need a functioning backend in order to deliver the experience I am targeting. I have decided to develop the core application with the Django framework, because of its versatility, built in admin panel, security focus, and support of Python programming language. With this decision out of the way, it is time to setup our development environment and pipeline. The steps are: Create Dev Environment Implement boilerplate and serve a splash page to verify functionality. Select and Setup Database (PostgreSQL is my favorite, but is it the best match for this application?) Determine Where and How to Deploy (I will probably start with Heroku because I already have underutilized eco dynamos provisioned for other projects) Setup Continuous Integration Automated Testing with Github Actions Setup Terraform (Probably Overkill for now, but if I start defining infrastructure from the start, it will greatly help with scaling if I decide to add a CDN, Multiple DBs, or more microservices) Setup Continuous Deployment to Heroku Test Branch Once I get all this out of the way, I can begin to implement features. I will begin with the basics; Exposing DB actions through a REST API, handling User Authentication, deciding how to define the relationship between different models, allowing users to add/edit/remove plants from their “garden” and input care notes. Once all of this is in place, I can setup the backend to process these notes and develop a care schedule. For now though, it is the boilerplate. Stay tuned for updates! Footnotes: By the way, Beneficial Nematodes were actually super effective at solving the fungus gnat issue. 10/10 would recommend ↩ Don’t worry, my plants all turned out ok. There is one Rhaphidophora tetrasperma that was already unhealthy that I am propagating because it did not move well, but otherwise all plants are doing much better now, and my uncommon propagations have been successfully transferred to soil. ↩ Epiphyte - A plant that grows off of another plant, as opposed to in soil. ↩ lithophyte - A plant that grows on rock faces ↩">
+<link rel="canonical" href="puffer.cafe%22/devlogs/2023/10/11/introducing-dendrobium.html">
+<meta property="og:url" content="puffer.cafe%22/devlogs/2023/10/11/introducing-dendrobium.html">
+<meta property="og:site_name" content="Puffer Cafe">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2023-10-11T09:15:24+00:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Introducing Dendrobium!">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"oliver_puffer"},"dateModified":"2023-10-11T09:15:24+00:00","datePublished":"2023-10-11T09:15:24+00:00","description":"Introduction For those of you who don’t know me, I am a fairly avid gardener. I collect rare and unique plants (sustainably sourced, of course) for an indoor plant collection that I have been contributing to and maintaining since my time in college. Recently, my partner has begun attending medical school at The University of California Davis School of Medicine in Sacramento, CA. There is far more outdoor space here in Sacramento, as opposed to in our tiny apartment in the Bay Area, which means I have been able to expand my plant collection to include a variety of northern california native plants as well. We also had a neighbor, upon hearing that we were moving, very generously offer us a variety of cuttings and house plants as well, to kickstart my expanded collection. As a result, my collection of plants has rapidly expanded to fill the newly available space, and for the first time I have begun to encountered difficulty keeping track of the requirements and watering schedules for each of them. Annnd then I got fungus gnats from a plant I bought online. And then the fungus gnats went for the cuttings I was attempting to propagate. With the new location, the new watering and light requirements, and the pests, my system for maintaining my collection began to break down. I needed to apply pest treatments 1 once a week, reacclimate all my plants to the new weather, water once every 7-10 days, re-pot plants that were overdue, fertilize plants, put shade cloth over plants that were getting sunburned, and generally manage a lot of added complexity. So being who I am, I began to search for technology that could assist me in maintaining my plant collection. Not just for watering, but also in regards to maintenance, pruning, weatherproofing, and neem-oil/fungicide/beneficial-nematode application.1 Unfortunately, the apps currently on the market left a lot to be desired, they were either too rigid (you must water once a week on the dot), too feature limited (no support for fertilizer/pesticide application), or really expensive (\\$8-\\$20 a month). 2 Which is why, I am going to build one. I have named this project Dendrobium. What’s in a Name? I wanted to pick a good name for this project. Which is easier said than done, it takes seconds to register a domain name, which means most of the good ones were taken hundreds of millions of seconds ago. After several days of trying different combinations, I settled on Dendrobium for a number of reasons. The word Dendrobium refers to a genus of epiphytic3 (and occasionally lithophytic4) Orchids People often struggle to care for orchids, in large part because the way they are presented for sale often contradicts their needs. This is an issue my app will seek to mitigate. Orchids are often presented like any other plant, in a pot, with their roots covered in growth media. Orchids are Epiphytic, which means instead of from potting mixes, they want to receive their water an nutrients in the form of humidity and moisture collecting on the side of a tree The most natural way to grow orchids is mounted on a piece of wood in high humidity environment such that the roots dry quickly after getting wet. While potted orchids can be grown with success, it requires very different, well draining “soil”. Dendrobium includes the greek root word “Dendron” meaning tree/plant and “Bios” meaning life. While this is in reference to how they grow in the wild. These concepts are also relevant to the project. Dendrobium.io was an unclaimed domain First Steps I already a splash page successfully hosted at Dendrobium.io including a nonfunctional preview of what the site layout might look like. I am not 100% satisfied with how it looks, but I think it is good enough for now. Currently it is a static site hosted with github pages, but this app will need a functioning backend in order to deliver the experience I am targeting. I have decided to develop the core application with the Django framework, because of its versatility, built in admin panel, security focus, and support of Python programming language. With this decision out of the way, it is time to setup our development environment and pipeline. The steps are: Create Dev Environment Implement boilerplate and serve a splash page to verify functionality. Select and Setup Database (PostgreSQL is my favorite, but is it the best match for this application?) Determine Where and How to Deploy (I will probably start with Heroku because I already have underutilized eco dynamos provisioned for other projects) Setup Continuous Integration Automated Testing with Github Actions Setup Terraform (Probably Overkill for now, but if I start defining infrastructure from the start, it will greatly help with scaling if I decide to add a CDN, Multiple DBs, or more microservices) Setup Continuous Deployment to Heroku Test Branch Once I get all this out of the way, I can begin to implement features. I will begin with the basics; Exposing DB actions through a REST API, handling User Authentication, deciding how to define the relationship between different models, allowing users to add/edit/remove plants from their “garden” and input care notes. Once all of this is in place, I can setup the backend to process these notes and develop a care schedule. For now though, it is the boilerplate. Stay tuned for updates! Footnotes: By the way, Beneficial Nematodes were actually super effective at solving the fungus gnat issue. 10/10 would recommend &#8617; Don’t worry, my plants all turned out ok. There is one Rhaphidophora tetrasperma that was already unhealthy that I am propagating because it did not move well, but otherwise all plants are doing much better now, and my uncommon propagations have been successfully transferred to soil. &#8617; Epiphyte - A plant that grows off of another plant, as opposed to in soil. &#8617; lithophyte - A plant that grows on rock faces &#8617;","headline":"Introducing Dendrobium!","mainEntityOfPage":{"@type":"WebPage","@id":"puffer.cafe%22/devlogs/2023/10/11/introducing-dendrobium.html"},"url":"puffer.cafe%22/devlogs/2023/10/11/introducing-dendrobium.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="shortcut icon" href="">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script src="/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="puffer.cafe%22/feed.xml" title="Puffer Cafe">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header site-header-transparent" role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/">
+  <img class="site-favicon" title="Puffer Cafe" src="" onerror="this.style.display='none'">
+  Puffer Cafe
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/about.html">ABOUT</a><a class="page-link" href="/archives.html">ARCHIVES</a><a class="page-link" href="/categories.html">CATEGORIES</a><a class="page-link" href="/">HOME</a><a class="page-link" href="/tags.html">TAGS</a>
+
+
+
+
+<span class="page-link">
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: '',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  (function() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;documentElement.setAttribute("data-header-transparent", "");var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    html .page-banner {
+      background: #000;
+    }
+  </style>
+<style>html .page-banner {
+      height:  36.8vh;
+      min-height: 38vh;
+    }
+    html[data-scroll-status="top"] .page-banner {
+      height: 100vh;
+    }
+  </style>
+<style>
+    html .page-banner .page-banner-img > *:first-child {
+      opacity: 0.618;
+    }
+
+    html[data-theme="dark"] .page-banner .page-banner-img > *:first-child {
+      opacity: 0.443724;
+    }
+  </style>
+<style>
+    html .page-banner .page-banner-inner > *:first-child > *:nth-child(1) {
+      font-size: 4.25em; font-weight: bold; text-decoration: underline
+    }
+  </style>
+<section class="page-banner">
+    <div class="page-banner-img">
+<div style="background-image: url(/assets/images/banners/rock-garden.jpg)"></div>
+        <img class="img-placeholder" src="/assets/images/banners/rock-garden.jpg">
+</div>
+    <div class="wrapper">
+      <div class="page-banner-inner">
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">Introducing Dendrobium!</h1>
+  <h2 class="post-subtitle">A hobbyist gardener's companion for plant care</h2>
+
+  <p class="post-meta">
+    <time class="dt-published" datetime="2023-10-11T09:15:24+00:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Oct 11, 2023
+    </time>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 6 mins</span>
+  </p>
+<div class="post-tags">
+<a class="post-tag" href="/tags.html#Dendrobium">#Dendrobium</a><a class="post-tag" href="/tags.html#Devlog">#Devlog</a><a class="post-tag" href="/tags.html#Django">#Django</a>
+</div></header>
+</div>
+    </div>
+  </section><script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<div class="theme-toggle">
+  <input type="checkbox" id="theme-switch">
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div>
+
+
+
+
+<script>
+  (function() {
+    var sw = document.getElementById('theme-switch');
+    var html = document.getElementsByTagName('html')[0];
+    var nightModeOption = ('auto' || 'auto').toLowerCase();
+    var storage = nightModeOption === 'manual'
+        ? localStorage
+        : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem('theme', JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem('theme');
+      try {
+        data = JSON.parse(data ? data : '');
+      } catch(e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? 'dark' : 'light';
+      setTimeout(function() {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <=7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0)
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function() {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime()
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener('change', function(event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == 'auto') {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == 'manual') {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === 'on';
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <h2 id="introduction">Introduction</h2>
+
+<h1 id="for-those-of-you-who-dont-know-me-i-am-a-fairly-avid-gardener">For those of you who don’t know me, I am a fairly avid gardener.</h1>
+
+<p>I collect rare and unique plants (sustainably sourced, of course) for an indoor plant collection that I have been contributing to and maintaining since my time in college. Recently, my partner has begun attending medical school at  <a href="https://health.ucdavis.edu/medical-school/">The University of California Davis School of Medicine</a> in Sacramento, CA. There is far more outdoor space here in Sacramento, as opposed to in our tiny apartment in the Bay Area, which means I have been able to expand my plant collection to include a variety of northern california native plants as well.</p>
+
+<p>We also had a neighbor, upon hearing that we were moving, very generously offer us a variety of cuttings and house plants as well, to kickstart my expanded collection.</p>
+
+<p>As a result, my collection of plants has rapidly expanded to fill the newly available space, and for the first time I have begun to encountered difficulty keeping track of the requirements and watering schedules for each of them.</p>
+
+<p>Annnd then I got fungus gnats from a plant I bought online. And then the fungus gnats went for the cuttings I was attempting to propagate.</p>
+
+<p>With the new location, the new watering and light requirements, and the pests, my system for maintaining my collection began to break down. I needed to apply pest treatments 1 once a week, reacclimate all my plants to the new weather, water once every 7-10 days, re-pot plants that were overdue, fertilize plants, put shade cloth over plants that were getting sunburned, and generally manage a lot of added complexity.</p>
+
+<p>So being who I am, I began to search for technology that could assist me in maintaining my plant collection. Not just for watering, but also in regards to maintenance, pruning, weatherproofing, and <a href="https://www.amazon.com/Bonide-BND022-Pesticide-Organic-Gardening/dp/B007CRG4CW/ref=asc_df_B007CRG4CW/?tag=hyprod-20&linkCode=df0&hvadid=416810682178&hvpos=&hvnetw=g&hvrand=5982816398489676476&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9032529&hvtargid=pla-902339632319&psc=1&tag=&ref=&adgrpid=99569067251&hvpone=&hvptwo=&hvadid=416810682178&hvpos=&hvnetw=g&hvrand=5982816398489676476&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9032529&hvtargid=pla-902339632319">neem-oil</a>/<a href="https://www.amazon.com/Bonide-Copper-Fungicide-Rtu-Natural/dp/B000UJVDXY/ref=sr_1_4?crid=3RO7F3I1YZIL3&keywords=copper+fungicide+spray&amp;qid=1697046944&amp;s=lawn-garden&amp;sprefix=copper+fu%2Clawngarden%2C144&amp;sr=1-4">fungicide</a>/<a href="https://www.amazon.com/NaturesGoodGuys-Live-Beneficial-Nematodes-Million_Nematodes/dp/B07DQT735W/ref=sr_1_5?crid=L2SSGZ3LDEZQ&keywords=beneficial+nematodes&amp;qid=1697046964&amp;s=lawn-garden&amp;sprefix=benef%2Clawngarden%2C140&amp;sr=1-5">beneficial-nematode</a> application.<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup></p>
+
+<p>Unfortunately, the apps currently on the market left a lot to be desired, they were either too rigid (you must water once a week on the dot), too feature limited (no support for fertilizer/pesticide application), or really expensive (\$8-\$20 a month). <sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup></p>
+
+<p>Which is why, I am going to build one. I have named this project <a href="https://dendrobium.io">Dendrobium</a>.</p>
+
+<h2 id="whats-in-a-name">What’s in a Name?</h2>
+
+<h1 id="i-wanted-to-pick-a-good-name-for-this-project">I wanted to pick a good name for this project.</h1>
+
+<p>Which is easier said than done, it takes seconds to register a domain name, which means most of the good ones were taken hundreds of millions of seconds ago. After several days of trying different combinations, I  settled on <a href="https://dendrobium.io">Dendrobium</a> for a number of reasons.</p>
+
+<ol>
+  <li>The word Dendrobium refers to a genus of epiphytic<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup> (and occasionally lithophytic<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">4</a></sup>) Orchids</li>
+  <li>People often struggle to care for orchids, in large part because the way they are presented for sale often contradicts their needs. This is an issue my app will seek to mitigate.
+    <ul>
+      <li>Orchids are often presented like any other plant, in a pot, with their roots covered in growth media.</li>
+      <li>Orchids are Epiphytic, which means instead of from potting mixes, they want to receive their water an nutrients in the form of humidity and moisture collecting on the side of a tree</li>
+      <li>The most natural way to grow orchids is mounted on a piece of wood in high humidity environment such that the roots dry quickly after getting wet. While potted orchids can be grown with success, it requires very different, well draining “soil”.</li>
+    </ul>
+  </li>
+  <li>Dendrobium includes the greek root word “Dendron” meaning tree/plant and “Bios” meaning life. While this is in reference to how they grow in the wild. These concepts are also relevant to the project.</li>
+  <li>
+<a href="https://dendrobium.io">Dendrobium.io</a> was an unclaimed domain</li>
+</ol>
+
+<h2 id="first-steps">First Steps</h2>
+
+<h1 id="i-already-a-splash-page-successfully-hosted-at-dendrobiumio-including-a-nonfunctional-preview-of-what-the-site-layout-might-look-like">I already a splash page successfully hosted at <a href="https://dendrobium.io">Dendrobium.io</a> including a nonfunctional preview of what the site layout might look like.</h1>
+
+<p>I am not 100% satisfied with how it looks, but I think it is good enough for now. Currently it is a static site hosted with github pages, but this app will need a functioning backend in order to deliver the experience I am targeting. I have decided to develop the core application with the Django framework, because of its versatility, built in admin panel, security focus, and support of Python programming language. With this decision out of the way, it is time to setup our development environment and pipeline.</p>
+
+<p>The steps are:</p>
+<ol>
+  <li>Create Dev Environment</li>
+  <li>Implement boilerplate and serve a splash page to verify functionality.</li>
+  <li>Select and Setup Database (PostgreSQL is my favorite, but is it the best match for this application?)</li>
+  <li>Determine Where and How to Deploy (I will probably start with Heroku because I already have underutilized eco dynamos provisioned for other projects)</li>
+  <li>Setup Continuous Integration Automated Testing with Github Actions</li>
+  <li>Setup Terraform (Probably Overkill for now, but if I start defining infrastructure from the start, it will greatly help with scaling if I decide to add a CDN, Multiple DBs, or more microservices)</li>
+  <li>Setup Continuous Deployment to Heroku Test Branch</li>
+</ol>
+
+<p>Once I get all this out of the way, I can begin to implement features. I will begin with the basics; Exposing DB actions through a REST API, handling User Authentication, deciding how to define the relationship between different models, allowing users to add/edit/remove plants from their “garden” and input care notes. Once all of this is in place, I can setup the backend to process these notes and develop a care schedule.</p>
+
+<p>For now though, it is the boilerplate. Stay tuned for updates!</p>
+
+<h1 id="footnotes">Footnotes:</h1>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>By the way, Beneficial Nematodes were actually super effective at solving the fungus gnat issue. 10/10 would recommend <a href="#fnref:1" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p>Don’t worry, my plants all turned out ok. There is one Rhaphidophora tetrasperma that was already unhealthy that I am propagating because it did not move well, but otherwise all plants are doing much better now, and my uncommon propagations have been successfully transferred to soil. <a href="#fnref:2" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+    <li id="fn:3" role="doc-endnote">
+      <p>Epiphyte - A plant that grows off of another plant, as opposed to in soil. <a href="#fnref:3" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+    <li id="fn:4" role="doc-endnote">
+      <p>lithophyte - A plant that grows on rock faces <a href="#fnref:4" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+  </ol>
+</div>
+
+
+    </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/coffee-chat/2023/10/10/welcome-to-the-cafe.html" title="Welcome to the Cafe!">Welcome to the Cafe!</a><a class="next" href="/devlogs/2023/10/12/Learning-Terraform.html" title="Learning Terraform">Learning Terraform</a>
+</div>
+<div class="post-related">
+      <div>Related Articles</div>
+      <ul>
+        <li><a class="post-link" href="/devlogs/2023/10/11/introducing-dendrobium.html" title="Learning Terraform">Introducing Dendrobium!</a></li>
+<li><a class="post-link" href="/devlogs/2023/10/12/Learning-Terraform.html" title="Learning Terraform">Learning Terraform</a></li>
+<li><a class="post-link" href="/coffee-chat/2023/10/10/welcome-to-the-cafe.html" title="Learning Terraform">Welcome to the Cafe!</a></li>
+</ul>
+    </div>
+<div class="post-comments"></div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">TOC</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+<div>© 2024. All rights reserved. Oliver Puffer
+</div>
+      <div>Powered by <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="https://jekyllrb.com/">Jekyll</a> &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>.</div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/feed.xml">via RSS</a>
+</div>
+      
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Learning Terraform | Puffer Cafe</title>
+<meta name="generator" content="Jekyll v4.3.1">
+<meta property="og:title" content="Learning Terraform">
+<meta name="author" content="oliver_puffer">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="Overview">
+<meta property="og:description" content="Overview">
+<link rel="canonical" href="puffer.cafe%22/devlogs/2023/10/12/Learning-Terraform.html">
+<meta property="og:url" content="puffer.cafe%22/devlogs/2023/10/12/Learning-Terraform.html">
+<meta property="og:site_name" content="Puffer Cafe">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2023-10-12T09:15:24+00:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Learning Terraform">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"oliver_puffer"},"dateModified":"2023-10-12T09:15:24+00:00","datePublished":"2023-10-12T09:15:24+00:00","description":"Overview","headline":"Learning Terraform","mainEntityOfPage":{"@type":"WebPage","@id":"puffer.cafe%22/devlogs/2023/10/12/Learning-Terraform.html"},"url":"puffer.cafe%22/devlogs/2023/10/12/Learning-Terraform.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="shortcut icon" href="">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script src="/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="puffer.cafe%22/feed.xml" title="Puffer Cafe">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header site-header-transparent" role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/">
+  <img class="site-favicon" title="Puffer Cafe" src="" onerror="this.style.display='none'">
+  Puffer Cafe
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/about.html">ABOUT</a><a class="page-link" href="/archives.html">ARCHIVES</a><a class="page-link" href="/categories.html">CATEGORIES</a><a class="page-link" href="/">HOME</a><a class="page-link" href="/tags.html">TAGS</a>
+
+
+
+
+<span class="page-link">
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: '',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  (function() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;documentElement.setAttribute("data-header-transparent", "");var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    html .page-banner {
+      background: #000;
+    }
+  </style>
+<style>html .page-banner {
+      height:  36.8vh;
+      min-height: 38vh;
+    }
+    html[data-scroll-status="top"] .page-banner {
+      height: 100vh;
+    }
+  </style>
+<style>
+    html .page-banner .page-banner-img > *:first-child {
+      opacity: 0.618;
+    }
+
+    html[data-theme="dark"] .page-banner .page-banner-img > *:first-child {
+      opacity: 0.443724;
+    }
+  </style>
+<style>
+    html .page-banner .page-banner-inner > *:first-child > *:nth-child(1) {
+      font-size: 4.25em; font-weight: bold; text-decoration: underline
+    }
+  </style>
+<section class="page-banner">
+    <div class="page-banner-img">
+<div style="background-image: url(/assets/images/banners/terraform.svg)"></div>
+        <img class="img-placeholder" src="/assets/images/banners/terraform.svg">
+</div>
+    <div class="wrapper">
+      <div class="page-banner-inner">
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">Learning Terraform</h1>
+  <h2 class="post-subtitle">Infrastructure as Code</h2>
+
+  <p class="post-meta">
+    <time class="dt-published" datetime="2023-10-12T09:15:24+00:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Oct 12, 2023
+    </time>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 7 mins</span>
+  </p>
+<div class="post-tags">
+<a class="post-tag" href="/tags.html#Terraform">#Terraform</a><a class="post-tag" href="/tags.html#Dendrobium">#Dendrobium</a><a class="post-tag" href="/tags.html#Devlog">#Devlog</a><a class="post-tag" href="/tags.html#Django">#Django</a>
+</div></header>
+</div>
+    </div>
+  </section><script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<div class="theme-toggle">
+  <input type="checkbox" id="theme-switch">
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div>
+
+
+
+
+<script>
+  (function() {
+    var sw = document.getElementById('theme-switch');
+    var html = document.getElementsByTagName('html')[0];
+    var nightModeOption = ('auto' || 'auto').toLowerCase();
+    var storage = nightModeOption === 'manual'
+        ? localStorage
+        : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem('theme', JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem('theme');
+      try {
+        data = JSON.parse(data ? data : '');
+      } catch(e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? 'dark' : 'light';
+      setTimeout(function() {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <=7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0)
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function() {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime()
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener('change', function(event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == 'auto') {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == 'manual') {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === 'on';
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <h2 id="overview">Overview</h2>
+
+<h1 id="terraform-is-a-proprietary-infrastructure-as-code-iac-tool-developed-by-hashicorp">Terraform is a proprietary Infrastructure as Code (IaC) tool developed by HashiCorp</h1>
+
+<p>Since its inception in 2014, Terraform has been developed and popularized under the Mozilla Public License. As of August 10th 2023, however, future improvements to Terraform ceased to be Open Source <a href="https://github.com/hashicorp/terraform/commit/b145fbcaadf0fa7d0e7040eac641d9aef2a26433">instead falling under the far more restrictive Business Source License</a>. This development has been disheartening to many fans and contributors to the project, but an open source fork of the project exist in the form of the nearly identical <a href="https://opentofu.org/">OpenTofu</a> project.</p>
+
+<p>As things currently stand, this license change primarily impacts companies using Terraform to offer a service that competes with HashiCorp’s own Terraform Cloud, and the actual impact to end users has been marginal.</p>
+
+<p>For the purposes of this page, I will be talking about my experience with HashiCorp’s Terraform.</p>
+
+<h2 id="what-is-infrastructure-as-code-iac">What is Infrastructure as Code (IaC)</h2>
+
+<p>Infrastructure as Code is the practice of managing all cloud infrastructure required for an application through a version-controlled file. This file can then be used alongside a tool such as Terraform, to provision all missing cloud resources automatically. This makes it easy to track changes to provisioned infrastructure, and ensure deployed resources match the expectations of all  developers on a team.</p>
+
+<p>I originally worried that this would be a difficult process. But the underlying concept is quite simple.</p>
+
+<p>For example, Take Deploying a Django App to Heroku, such as Dendrobium.
+The steps historically looked something like this:</p>
+
+<ol>
+  <li>Download the Heroku CLI</li>
+  <li>run <code class="language-plaintext highlighter-rouge">heroku create -a dendrobium</code>
+</li>
+  <li>Find out dendrobium is already taken</li>
+  <li>eventually try to run <code class="language-plaintext highlighter-rouge">heroku create -a dendro</code>
+</li>
+  <li>Try to Remember that the app is named dendro on Heroku</li>
+  <li>then run <code class="language-plaintext highlighter-rouge">heroku addons:create heroku-postgresql:mini</code>
+</li>
+</ol>
+
+<p>But then, lets say your app takes off, and you need more database space for all the new accounts and user data. That $5/mo mini-postgresql database plan isn’t going to cut it anymore.</p>
+
+<p>And then when you decide that it is finally time to Scale to a CDN, you repeat the same steps again, but this time with AWS/Azure/digitalocean.</p>
+
+<p>Plus again for every microservice… you get the picture.</p>
+
+<p>Instead, Terraform allows us to describe our infrastructure in .tf files.</p>
+
+<h2 id="terraform-ing-dendrobium">Terraform-ing Dendrobium</h2>
+<h1 id="to-get-started-i-installed-terraform-with-wsl-and-created-a-maintf-file">To get started, I installed Terraform with WSL, and created a <code class="language-plaintext highlighter-rouge">main.tf</code> file.</h1>
+
+<p>Terraform by itself doesn’t know what cloud providers we use, so we need to define it. We can do this in the required_providers section of the Terraform block, defining the Heroku automation tool set, along with the desired version.</p>
+
+<pre><code class="language-HCL">terraform {
+  required_providers {
+    heroku = {
+      source  = "heroku/heroku" # Heroku's Heroku package
+      version = "~&gt; 5.0"  # Version 5.0
+    }
+  }
+}
+</code></pre>
+
+<p>That’s it. Terraform now knows how to interface with Heroku. So now we need to define what we want. At this point, we are still in early development, so I only need to provision two Heroku Resources.</p>
+<ol>
+  <li>A Heroku App configured to use Eco Dynamos</li>
+  <li>An attached PostgreSQL “mini-tier” database to store all application data.</li>
+</ol>
+
+<p>So we can begin to provision the apps.</p>
+
+<p>First we define a new resource of type “heroku_app” and we name it “Dendrobium-Core”. This name is not the Heroku app name, but rather the name we will use within this Terraform document to refer back to this resource.</p>
+
+<p>We must assign the app name and desired region through a series of key value pairs inside of the “Dendrobium-Core” block.</p>
+
+<p>For me, that looked something like this:</p>
+
+<p>In <code class="language-plaintext highlighter-rouge">main.tf</code> :</p>
+<pre><code class="language-HCL">  # Provision the Core Heroku App "Dendrobium-Core"
+  resource "heroku_app" "Dendrobium-Core" {
+      name = "dendro"
+      region = "us"
+  }
+</code></pre>
+
+<p>Now would be a good time to check syntax. Luckily Terraform has tf file syntax checker.</p>
+
+<p>First I run</p>
+
+<p><code class="language-plaintext highlighter-rouge">terraform init</code></p>
+
+<p>to setup Terraform based on my <code class="language-plaintext highlighter-rouge">main.tf</code>` file. Now I should be able to execute other Terraform commands including:</p>
+
+<p><code class="language-plaintext highlighter-rouge">terraform validate</code></p>
+
+<p>which, if everything was done correctly, should return:</p>
+
+<p><code class="language-plaintext highlighter-rouge">Success! The configuration is valid.</code></p>
+
+<p>I am not done yet. I still need to attach a database, but if it is anything like provisioning an app, It should be no problem.</p>
+
+<p>In summary, it both is an isn’t. First, we can go over what is the same.</p>
+
+<ol>
+  <li>
+    <p>You create a database resource, this is the same as before except instead of an “heroku_app”, it is a “heroku_addon” with the name “database”</p>
+
+    <p><code class="language-plaintext highlighter-rouge">resource "heroku_addon" "database" {...}</code></p>
+  </li>
+  <li>
+    <p>I need to Select my database plan, in this case <code class="language-plaintext highlighter-rouge">postgresql:mini</code></p>
+
+    <pre><code class="language-HCL">   resource "heroku_addon" "database" {
+     &lt;...&gt;
+     plan   = "heroku-postgresql:mini"
+   }
+</code></pre>
+  </li>
+</ol>
+
+<p>So far so good. This has been very similar in concept to provisioning a Heroku-App, and ultimately been quite easy. There is one slight twist however. One quirk about Heroku is that databases are provisioned as “add-ons” to an existing app. This means, I need to somehow tell Terraform which Heroku app to attach the database to.</p>
+
+<p>At first I thought maybe there was some way to use the app name, but Terraform was fairly adamant that I should be using an <code class="language-plaintext highlighter-rouge">app_id</code> value instead. Only one problem. I don’t have an app_id. Those are assigned by Heroku after the app is provisioned, and obviously I haven’t done that yet as I am using Terraform to provision resources right now.</p>
+
+<p>I considered some naive approaches (ie. What if I create the app, check the portal for the app_id, then hardcode it into Terraform?) but they weren’t satisfying, and many would defeat the purpose of Terraform altogether (ie. If I need to redeploy, then I will need to manually update the hardcoded value.)</p>
+
+<p>Thats when I discovered that Terraform lets you dynamically access values (like app_ids) from other resources. You see, I erroneously believed that Terraform wouldn’t have access to the app_id, as it is assigned upon provisioning, but that is not entirely true. When you run Terraform, Terraform creates a terraform.tfstate file. This file contains a ton of information about a resource after it is provisioned. I am talking about Heroku assigned hostnames, connected github accounts, organizations, stacks, web urls, even secrets required to deploy successfully, and yes this includes app_ids.</p>
+
+<p>We can access this information with for our Dendrobium-Core Heroku app with the code snippet <code class="language-plaintext highlighter-rouge">heroku_app.Dendrobium-Core.id</code></p>
+
+<p>which we can add to our <code class="language-plaintext highlighter-rouge">main.tf</code> file’s heroku_addon configuration block to get:</p>
+
+<pre><code class="language-HCL">  # Create a database, and configure the app to use it
+  resource "heroku_addon" "database" {
+    app_id = heroku_app.Dendrobium-Core.id
+    plan   = "heroku-postgresql:mini"
+  }
+</code></pre>
+
+<p>With both resources defined, we can now run</p>
+
+<p><code class="language-plaintext highlighter-rouge">terraform validate</code> to verify that our syntax is correct</p>
+
+<p><code class="language-plaintext highlighter-rouge">terraform plan</code> to double check what Terraform is going to do to provision the resources we defined.</p>
+
+<p>and if everything looks good we can finally run</p>
+
+<p><code class="language-plaintext highlighter-rouge">terraform apply</code></p>
+
+<p>To automatically provision all the infrastructure we need for our app.</p>
+
+<p>Now the Dendrobium Project infrastructure is managed by Terraform!</p>
+
+<h2 id="tldr">TLDR</h2>
+<h1 id="here-is-the-configuration-file-i-finally-landed-on">Here is the configuration file I finally landed on:</h1>
+<p><code class="language-plaintext highlighter-rouge">main.tf</code>:</p>
+
+<pre><code class="language-HCL"># Heroku Boilerplate
+terraform {
+  required_providers {
+    heroku = {
+      source  = "heroku/heroku"
+      version = "~&gt; 5.0"
+    }
+  }
+}
+
+# Provision the Core Heroku App "Dendrobium-Core"
+resource "heroku_app" "Dendrobium-Core" {
+    name = "dendro" # The name Heroku will use for the App Resource
+    region = "us" # The Region I want this App hosted in
+}
+
+# Create a database, and configure the app to use it
+resource "heroku_addon" "database" {
+  app_id = heroku_app.Dendrobium-Core.id
+  plan   = "heroku-postgresql:mini"
+}
+
+</code></pre>
+
+<h1 id="commands">Commands:</h1>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  terraform validate
+  terraform plan
+  terraform apply
+</code></pre></div></div>
+
+
+
+    </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/devlogs/2023/10/11/introducing-dendrobium.html" title="Introducing Dendrobium!">Introducing Dendrobium!</a><span></span>
+</div>
+<div class="post-related">
+      <div>Related Articles</div>
+      <ul>
+        <li><a class="post-link" href="/devlogs/2023/10/11/introducing-dendrobium.html" title="">Introducing Dendrobium!</a></li>
+<li><a class="post-link" href="/devlogs/2023/10/12/Learning-Terraform.html" title="">Learning Terraform</a></li>
+<li><a class="post-link" href="/coffee-chat/2023/10/10/welcome-to-the-cafe.html" title="">Welcome to the Cafe!</a></li>
+</ul>
+    </div>
+<div class="post-comments"></div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">TOC</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+<div>© 2024. All rights reserved. Oliver Puffer
+</div>
+      <div>Powered by <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="https://jekyllrb.com/">Jekyll</a> &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>.</div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/feed.xml">via RSS</a>
+</div>
+      
+    </div>
+  </div>
+</footer>
+</body>
+</html>

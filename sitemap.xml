@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>puffer.cafe%22/coffee-chat/2023/10/10/welcome-to-the-cafe.html</loc>
+<lastmod>2023-10-10T09:15:24+00:00</lastmod>
+</url>
+<url>
+<loc>puffer.cafe%22/devlogs/2023/10/11/introducing-dendrobium.html</loc>
+<lastmod>2023-10-11T09:15:24+00:00</lastmod>
+</url>
+<url>
+<loc>puffer.cafe%22/devlogs/2023/10/12/Learning-Terraform.html</loc>
+<lastmod>2023-10-12T09:15:24+00:00</lastmod>
+</url>
+<url>
+<loc>puffer.cafe%22/about.html</loc>
+</url>
+<url>
+<loc>puffer.cafe%22/archives.html</loc>
+</url>
+<url>
+<loc>puffer.cafe%22/categories.html</loc>
+</url>
+<url>
+<loc>puffer.cafe%22/</loc>
+</url>
+<url>
+<loc>puffer.cafe%22/tags.html</loc>
+</url>
+</urlset>
